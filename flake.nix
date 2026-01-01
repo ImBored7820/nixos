@@ -64,6 +64,7 @@
 
       specialArgs = {
         inherit stable; 
+	inherit hyprland;
       };
 
       modules = [

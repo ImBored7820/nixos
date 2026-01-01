@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, stable, ... }:
+{ config, lib, pkgs, inputs, stable, hyprland, ... }:
 
 {
   imports =
@@ -37,6 +37,8 @@
   xdg.portal.enable = true;
   programs.hyprland = {
    enable = true;
+   package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+   portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
    };
   security.polkit.enable = true;
   services.dbus.enable = true;
@@ -84,18 +86,32 @@
     # Main Apps
     discord
     spotify
-    # Hypr-Ecosystem
+    # Hypr-Ecosystem + Prereqs.
+    waybar
+    xdg-desktop-portal
+    dunst
     hyprpaper
     hyprcursor
     hyprlauncher
     hyprlock
     hypridle
+    hyprpicker
+    hyprsunset
+    hyprsysteminfo
+    hyprpolkitagent
+    hyprland-protocols
+    hyprland-qtutils
+    #Ctls
+    brightnessctl
+    playerctl
     # Misc
     plymouth
+    cachix
     ];
   
   # --- SYSTEM ---
   environment.variables.EDITOR = "neovim";
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # networking, timezone, and stateVersion settings
   hardware.enableAllFirmware = true;
   networking.hostName = "MusaNixos"; # Define your hostname.
