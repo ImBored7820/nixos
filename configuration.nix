@@ -79,8 +79,8 @@
     wl-clipboard
     libinput
     # Linux-Surface
-    stable.surface-control
-    stable.linux-firmware
+    surface-control
+    linux-firmware
     # Main Apps
     discord
     spotify
