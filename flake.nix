@@ -59,7 +59,7 @@
   in
   {
     # NixOS system entry. Name it the same as your machine/user convention.
-    nixosConfigurations.MusaNixos = nixpkgs-stable.lib.nixosSystem {
+    nixosConfigurations.MusaNixos = nixpkgs.lib.nixosSystem {
       inherit system;
 
       specialArgs = {
