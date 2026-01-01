@@ -4,13 +4,33 @@
   ############################################################
 
   description = "NixOS - Surface Laptop 3 (Intel) - Hyprland";
+  
+  nixConfig = {
+        # flakes enabled for systems that use this flake
+        experimental-features = [ "nix-command" "flakes" ];
+
+        # prefer extra-substituters/extra-trusted-public-keys for flakes
+        extra-substituters = [
+          "https://cache.nixos.org"
+          "https://linux-surface.cachix.org"
+          "https://hyprland.cachix.org"
+          "https://nix-community.cachix.org"
+        ];
+
+        extra-trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+	  "linux-surface.cachix.org-1:h4xRj4dujnm9I9aL2V7OmUTiT7oEefGVwiI4UQrESsk="
+	  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+	  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+      };
 
   inputs = {
     # Stable base system 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     # Unstable channel 
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Surface hardware helpers
     #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -20,7 +40,7 @@
     # Hyprland upstream 
     hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, hyprland, ... }:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, ... }:
   let
     # Target architecture 
     system = "x86_64-linux";
@@ -32,20 +52,18 @@
       config.allowUnfree = true;
     };
 
-    unstable = import nixpkgs-unstable {
+    stable = import nixpkgs-stable {
       inherit system;
       config.allowUnfree = true;
     };
   in
   {
     # NixOS system entry. Name it the same as your machine/user convention.
-    nixosConfigurations.MusaNixos = nixpkgs-unstable.lib.nixosSystem {
+    nixosConfigurations.MusaNixos = nixpkgs-stable.lib.nixosSystem {
       inherit system;
 
       specialArgs = {
-        inherit unstable;
-        # If you want, you could also expose `hyprland` or specific inputs here,
-        # but keep the surface minimal and explicit.
+        inherit stable; 
       };
 
       modules = [
@@ -53,14 +71,13 @@
         {
           nixpkgs.config.allowUnfree = true;
         }
-
-        # Your main NixOS configuration (should accept `unstable` in its args)
         ./configuration.nix
 
-        # Surface hardware module — kept enabled as you had it.
+        # Surface hardware module
         nixos-hardware.nixosModules.microsoft-surface-common
 
       ];
+
     };
   };
 }
@@ -69,35 +86,4 @@
 
 
 
-# {
-#   description = "NixOS - Surface Laptop 3 (Intel) - Hyprland";
-#
-#   inputs = {
-#     # Change 'nixos-24.11' to 'nixos-unstable'
-#     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-#     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-#     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-#     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-#     hyprland.url = "github:hyprwm/Hyprland";
-#   };
-#
-#   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, hyprland, ... }@inputs: {
-#     nixosConfigurations.MusaNixos = nixpkgs.lib.nixosSystem {
-#       system = "x86_64-linux";
-#       specialArgs = { 
-#       	inherit inputs; 
-# 	unstable = import inputs.nixpkgs-unstable {
-#         config.allowUnfree = true;
-#     	};
-# 	inherit unstable;
-#       }; 
-#       modules = [
-#         {
-#           nixpkgs.config.allowUnfree = true;
-#         }
-#         ./configuration.nix
-#         nixos-hardware.nixosModules.microsoft-surface-common
-#       ]; 
-#     };
-#   };
-# }
+
