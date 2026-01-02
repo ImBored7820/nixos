@@ -1,9 +1,13 @@
-My Configuration for NixOS (WIP)
+**NixOS Configuration Files**
+- _Iteniary_
+- flake.nix
+- configuration.nix
+- home.nix
 
 This is meant to be for devices that require the linux surface kernel
 
 The version currently used for:
 
-  kernel: 6.12.19
+  **Kernel**: 6.12.19 (LTS)
   
-  Device: surface-common
+  **Device**: surface-common
