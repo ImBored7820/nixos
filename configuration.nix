@@ -4,9 +4,6 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      #./cachix.nix
-      # This imports the Surface kernel patches automatically
-      #inputs.nixos-hardware.nixosModules.microsoft-surface-common 
     ];
 
   # --- BOOT & KERNEL ---
