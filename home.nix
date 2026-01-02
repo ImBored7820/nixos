@@ -35,6 +35,6 @@
     hyprpolkitagent
     hyprland-protocols
     hyprland-qtutils
-
+    #hyprqt6engine
   ];
 }

@@ -5,7 +5,7 @@
     [ 
       ./hardware-configuration.nix
     ];
-
+  hardware.microsoft-surface.kernelVersion = "stable";
   # --- BOOT & KERNEL ---
   boot.loader.systemd-boot.enable = true;
   boot.initrd.systemd.enable = true;
@@ -19,10 +19,18 @@
   "i915.enable_fbc=1"
   "quiet"
   "splash"
+  "loglevel=3"
+  "udev.log_level=3"
   ];
 
   # --- Laptop Protection ---
   services.thermald.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+    priority = 100;
+  };
 
   # --- GRAPHICS ---
   hardware.graphics = {
@@ -131,44 +139,44 @@
   time.timeZone = "America/Los_Angeles";
   system.stateVersion = "25.11"; 
 
-#  # --- Automatic Sbctl Signing ---
-#  system.activationScripts.signEfi = {
-#  # deps are for other script names, not packages. 'binsh' is a safe default.
-#  deps = [ "binsh" ];
+ # --- Automatic Sbctl Signing ---
+ system.activationScripts.signEfi = {
+ # deps are for other script names, not packages. 'binsh' is a safe default.
+ deps = [ "binsh" ];
 
-#  text = ''
-#    set -euo pipefail
+ text = ''
+   set -euo pipefail
 
-#    SBCTL="${pkgs.sbctl}/bin/sbctl"
-#    EFI_DIR="/boot/EFI"
+   SBCTL="${pkgs.sbctl}/bin/sbctl"
+   EFI_DIR="/boot/EFI"
 
-#    # 1. Safety check for sbctl and keys
-#    if ! [ -x "$SBCTL" ]; then
-#      echo "sbctl not found — skipping"
-#      exit 0
-#    fi
+   # 1. Safety check for sbctl and keys
+   if ! [ -x "$SBCTL" ]; then
+     echo "sbctl not found — skipping"
+     exit 0
+   fi
 
-#    # 2. Sign NixOS Generations
-#    if [ -d "$EFI_DIR/nixos" ]; then
-#      echo "Signing NixOS EFI binaries..."
-#      find "$EFI_DIR/nixos" -type f -iname '*.efi' -print0 | while IFS= read -r -d "" file; do
-#        # Only sign if not already signed to save time/wear
-#        if ! "$SBCTL" verify "$file" >/dev/null 2>&1; then
-#          echo "Signing: $file"
-#          "$SBCTL" sign -s "$file"
-#        fi
-#      done
-#    fi
+   # 2. Sign NixOS Generations
+   if [ -d "$EFI_DIR/nixos" ]; then
+     echo "Signing NixOS EFI binaries..."
+     find "$EFI_DIR/nixos" -type f -iname '*.efi' -print0 | while IFS= read -r -d "" file; do
+       # Only sign if not already signed to save time/wear
+       if ! "$SBCTL" verify "$file" >/dev/null 2>&1; then
+         echo "Signing: $file"
+         "$SBCTL" sign -s "$file"
+       fi
+     done
+   fi
 
-#    # 3. Sign Bootloader
-#    for f in "$EFI_DIR/BOOT/BOOTX64.EFI" "$EFI_DIR/systemd/systemd-bootx64.efi"; do
-#      if [ -f "$f" ] && ! "$SBCTL" verify "$f" >/dev/null 2>&1; then
-#        echo "Signing bootloader: $f"
-#        "$SBCTL" sign -s "$f"
-#      fi
-#    done
-#  '';
-#};
+   # 3. Sign Bootloader
+   for f in "$EFI_DIR/BOOT/BOOTX64.EFI" "$EFI_DIR/systemd/systemd-bootx64.efi"; do
+     if [ -f "$f" ] && ! "$SBCTL" verify "$f" >/dev/null 2>&1; then
+       echo "Signing bootloader: $f"
+       "$SBCTL" sign -s "$f"
+     fi
+   done
+ '';
+};
 
 
 }
