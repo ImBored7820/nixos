@@ -54,10 +54,10 @@
   # services.xserver.desktopManager.gnome.enable = true;
 
   # --- SDDM ---
-  services.displayManger.sddm = {
+  services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-  }
+  };
 
   # --- ENVIRONMENT ---
   environment.sessionVariables = {
