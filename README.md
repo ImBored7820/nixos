@@ -1,5 +1,4 @@
 **NixOS Configuration Files**
-- _Iteniary_
 - flake.nix
 - configuration.nix
 - home.nix
