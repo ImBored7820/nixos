@@ -39,15 +39,8 @@
     # Hyprland upstream 
     hyprland.url = "github:hyprwm/Hyprland";
     
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-utils.url = "github:numtide/flake-utils";
-
   };
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, ... }:
   let
     # Target architecture 
     system = "x86_64-linux";
@@ -73,7 +66,6 @@
         inherit stable; 
 	inherit hyprland;
 	inherit nixpkgs;
-	inherit home-manager;
       };
 
       modules = [
@@ -85,32 +77,9 @@
 
         # Surface hardware module
         nixos-hardware.nixosModules.microsoft-surface-common
-
-	# Home Manager
-        (home-manager.nixosModules.home-manager)
-
       ];
 
     };
-
-    homeConfigurations = {
-    "musa@MusaNixos" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      # Provide your home config as a list of modules.
-      # If your ./home.nix is a module function that expects args, import it here.
-      modules = [
-        (import ./home.nix {
-          inherit pkgs;
-          username = "musa";
-          homeDir = "/home/musa";
-        })
-      ];
-
-      # optionally: stateVersion = "24.05";
-    };
-  };
-
 
   };
 }

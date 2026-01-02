@@ -11,11 +11,17 @@
 
   # --- BOOT & KERNEL ---
   boot.loader.systemd-boot.enable = true;
+  boot.initrd.systemd.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "i915" ]; # Keep this for Intel Graphics
+  # Plymouth
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "bgrt";
   boot.kernelParams = [ 
   "i915.enable_guc=3" 
-  "i915.enable_fbc=1" 
+  "i915.enable_fbc=1"
+  "quiet"
+  "splash"
   ];
 
   # --- Laptop Protection ---
@@ -107,9 +113,7 @@
     playerctl
     sbctl
     # Misc
-    plymouth
     cachix
-    home-manager
     ];
   
   # --- SYSTEM ---
