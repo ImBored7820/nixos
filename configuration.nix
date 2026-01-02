@@ -109,6 +109,7 @@
     # Misc
     plymouth
     cachix
+    home-manager
     ];
   
   # --- SYSTEM ---
