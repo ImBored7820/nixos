@@ -38,9 +38,13 @@
 
     # Hyprland upstream 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    # Home Manager
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
   };
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, ... }:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, home-manager, ... }:
   let
     # Target architecture 
     system = "x86_64-linux";
@@ -77,6 +81,12 @@
 
         # Surface hardware module
         nixos-hardware.nixosModules.microsoft-surface-common
+
+	# Home Manager
+	home-manager.nixosModules.home-manager
+	{
+	  home-manager.users.musa = import ./home.nix;
+	}
       ];
 
     };

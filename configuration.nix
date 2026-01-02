@@ -56,20 +56,28 @@
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
 
-  
+  # --- SDDM ---
+  services.displayManger.sddm = {
+    enable = true;
+    wayland.enable = true;
+  }
+
   # --- ENVIRONMENT ---
   environment.sessionVariables = {
    NIXOS_OZONE_WL = "1"; # Forces apps like VSCode/Discord to use Wayland
    NIX_PROXIES_FOR_OPENGL = "1";
   };
 
+  # --- HOME-MANAGER ---
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.backupFileExtension = "backup";
+
   # --- PACKAGES ---
   users.users.musa = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];
-    packages = with pkgs; [
-      tree
-    ];
+    shell = bash;
   };
 
    # --- PACKAGES (System) --- 
@@ -81,33 +89,13 @@
     kitty
     fastfetch
     btop
-    git
-    foot
     # Utilities 
     wl-clipboard
     libinput
-    nautilus
+    hyprpolkitagent
     # Linux-Surface
     surface-control
     linux-firmware
-    # Main Apps
-    discord
-    spotify
-    # Hypr-Ecosystem + Prereqs.
-    waybar
-    xdg-desktop-portal
-    dunst
-    hyprpaper
-    hyprcursor
-    hyprlauncher
-    hyprlock
-    hypridle
-    hyprpicker
-    hyprsunset
-    hyprsysteminfo
-    hyprpolkitagent
-    hyprland-protocols
-    hyprland-qtutils
     #Ctls
     brightnessctl
     playerctl
@@ -115,12 +103,21 @@
     # Misc
     cachix
     ];
+
+  # --- FONTS ---
+  fonts.packages = with pkgs; [
+    noto-fonts
+    nerd-fonts.jetbrains-mono
+
+  ];
   
   # --- SYSTEM ---
   environment.variables.EDITOR = "neovim";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # networking, timezone, and stateVersion settings
   hardware.enableAllFirmware = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
   networking.hostName = "MusaNixos"; # Define your hostname.
   services.openssh.enable = true;
   services.pipewire = {
