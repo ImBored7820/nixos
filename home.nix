@@ -2,7 +2,7 @@
 {
   home.username = "musa";
   home.homeDirectory = "/home/musa";
-
+  home.stateVersion = "25.11";
   programs.firefox.enable = true;
 
   programs.git = {
