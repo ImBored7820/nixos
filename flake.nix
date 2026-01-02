@@ -16,7 +16,7 @@
           "https://hyprland.cachix.org"
           "https://nix-community.cachix.org"
         ];
-
+		# TODO: VERIFY KEYS
         extra-trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 	  "linux-surface.cachix.org-1:h4xRj4dujnm9I9aL2V7OmUTiT7oEefGVwiI4UQrESsk="
