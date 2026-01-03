@@ -5,7 +5,7 @@
     [ 
       ./hardware-configuration.nix
     ];
-  hardware.microsoft-surface.kernelVersion = "stable";
+  
   # --- BOOT & KERNEL ---
   boot.loader.systemd-boot.enable = true;
   boot.initrd.systemd.enable = true;
@@ -23,7 +23,8 @@
   "udev.log_level=3"
   ];
 
-  # --- Laptop Protection ---
+  # --- Laptop ---
+  hardware.microsoft-surface.kernelVersion = “stable”; # 6.15.9
   services.thermald.enable = true;
   services.fstrim.enable = true;
   services.tlp = {
