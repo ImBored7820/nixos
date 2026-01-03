@@ -1,0 +1,50 @@
+window {
+    margin: 0px;
+    border: 2px solid #2e7d32; /* Dark green border */
+    background-color: #000000;
+    font-family: "Inter", "sans-serif";
+    font-size: 14px;
+}
+
+#outer-box {
+    margin: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+#input {
+    margin: 5px;
+    border: none;
+    color: #ffffff;
+    background-color: #1a1a1a; /* Dark grey input box */
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Individual entries */
+#entry {
+    padding: 10px;
+    border: none;
+}
+
+/* Green Active/Selected State */
+#entry:selected {
+    background-color: #4CAF50; /* Vibrant Green to match Waybar */
+    border-radius: 5px;
+}
+
+#text:selected {
+    color: #000000;
+    font-weight: bold;
+}
+
+/* Icons styling */
+#img {
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,111 @@
+/* nwg-drawer.css
+   Minimal black + green drawer
+*/
+
+/* Palette */
+@define-color bg #060606;
+@define-color panel-bg rgba(8,8,8,0.94);
+@define-color fg #d6ffd9;
+@define-color accent #00C853;
+@define-color subtle rgba(255,255,255,0.03);
+
+/* Drawer window */
+#nwg-drawer,
+.nwg-drawer,
+.drawer {
+    background-color: panel-bg;
+    color: fg;
+    border-radius: 12px;
+    padding: 10px;
+    width: 340px;
+    border: 1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+}
+
+/* Search entry at top */
+.drawer .search-entry,
+.search-entry {
+    background-color: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: fg;
+    font-size: 14px;
+}
+
+/* Section headers (Apps / Favorites / Settings) */
+.drawer .section-title,
+.section-title {
+    color: accent;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin: 8px 4px 6px;
+    letter-spacing: 0.06em;
+}
+
+/* Entry rows */
+.drawer .entry,
+.entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 4px 0;
+    transition: background 120ms ease, transform 80ms ease;
+    background: transparent;
+}
+
+/* Hover state */
+.drawer .entry:hover,
+.entry:hover {
+    background: rgba(0,200,83,0.04);
+    transform: translateX(4px);
+}
+
+/* Icons in rows */
+.entry .icon,
+.drawer .icon {
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 6px;
+    overflow: hidden;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+/* Entry label */
+.entry .label,
+.entry-label {
+    font-size: 13.5px;
+    color: fg;
+}
+
+/* Subtitle / small text */
+.entry .subtitle,
+.entry-sub {
+    font-size: 11px;
+    color: rgba(214,255,217,0.78);
+}
+
+/* Scrollbar - minimal */
+.scroller scrollbar,
+.scrollbar {
+    background: transparent;
+    width: 8px;
+}
+
+.scrollbar slider,
+.scrollbar .slider {
+    background-color: rgba(0,200,83,0.12);
+    border-radius: 6px;
+    min-height: 24px;
+}
+
+/* Footer / gear row */
+.drawer .footer {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}

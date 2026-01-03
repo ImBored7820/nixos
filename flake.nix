@@ -42,9 +42,12 @@
     # Home Manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix"; # Add this
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     
   };
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, hyprland, home-manager, spicetify-nix, ... }:
   let
     # Target architecture 
     system = "x86_64-linux";
@@ -70,6 +73,7 @@
         inherit stable; 
 	inherit hyprland;
 	inherit nixpkgs;
+	inherit spicetify-nix;
       };
 
       modules = [
@@ -85,6 +89,7 @@
 	# Home Manager
 	home-manager.nixosModules.home-manager
 	{
+	  home-manager.extraSpecialArgs = { inherit spicetify-nix; };
 	  home-manager.users.musa = import ./home.nix;
 	}
       ];

@@ -1,0 +1,112 @@
+/* nwg-dock.css
+   Black & green minimal dock
+   Accent color: #00C853 (change to taste)
+*/
+
+/* Palette */
+@define-color bg #0b0b0b;
+@define-color panel-bg rgba(3,3,3,0.86);
+@define-color fg #d6ffd9;
+@define-color accent #00C853;
+@define-color accent-faint rgba(0,200,83,0.08);
+@define-color shadow rgba(0,0,0,0.6);
+
+/* Dock container */
+#nwg-dock,
+.nwg-dock {
+    background-color: panel-bg;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 8px 24px shadow;
+    border: 1px solid rgba(255,255,255,0.02);
+    color: fg;
+}
+
+/* App button basics */
+.nwg-dock .app,
+button.app,
+.app-button {
+    background-color: transparent;
+    border: none;
+    min-width: 48px;
+    min-height: 48px;
+    margin: 6px;
+    padding: 6px;
+    border-radius: 10px;
+    transition: background 120ms ease, transform 120ms ease;
+    outline: none;
+}
+
+/* Hover / active */
+.nwg-dock .app:hover,
+button.app:hover {
+    background-color: accent-faint;
+    transform: translateY(-2px);
+}
+
+.nwg-dock .app:active,
+button.app:active {
+    transform: translateY(0);
+}
+
+/* Focused / running indicator (subtle underline) */
+.nwg-dock .app.focused::after,
+button.app.focused::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 8px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: accent;
+    box-shadow: 0 6px 18px rgba(0,200,83,0.12);
+}
+
+/* Icons - keep them crisp */
+.nwg-dock .app .icon,
+button.app .icon {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+    image-rendering: optimizeQuality;
+}
+
+/* Badges (notifications/counts) */
+.nwg-dock .app .badge,
+button.app .badge {
+    background-color: accent;
+    color: #021;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: none;
+}
+
+/* Tray / separators */
+.nwg-dock .tray,
+.nwg-dock .separator {
+    opacity: 0.08;
+    margin: 4px 12px;
+}
+
+/* Minimal context popup (app previews, menu) */
+.popup,
+.menu {
+    background: linear-gradient(180deg, rgba(6,6,6,0.98), rgba(3,3,3,0.95));
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+    color: fg;
+}
+
+/* Touch-friendly spacing if in touch-mode */
+@media (pointer: coarse) {
+    .nwg-dock .app,
+    button.app {
+        min-width: 60px;
+        min-height: 60px;
+        margin: 8px;
+    }
+}
