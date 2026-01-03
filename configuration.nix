@@ -24,7 +24,7 @@
   ];
 
   # --- Laptop ---
-  hardware.microsoft-surface.kernelVersion = “stable”; # 6.15.9
+  hardware.microsoft-surface.kernelVersion = "stable"; # 6.15.9
   services.thermald.enable = true;
   services.fstrim.enable = true;
   services.tlp = {
