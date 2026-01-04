@@ -34,6 +34,7 @@
       "loglevel=3"
       "udev.log_level=3"
 	];
+    kernel.sysctl."vm.swappiness" = 30;
   };
 
   # --- Laptop ---
@@ -53,6 +54,13 @@
     memoryPercent = 50;
     priority = 100;
   };
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024;
+      priority = 30;
+	}
+  ];
 
   # --- GRAPHICS ---
   hardware.graphics = {
