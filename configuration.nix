@@ -14,18 +14,18 @@
       systemd-boot = {
         enable = true;
         consoleMode = "max";
-	  };
+	};
       efi.canTouchEfiVariables = true;
       timeout = 3;
-	};
+    };
     initrd = {
       systemd.enable = true;
       kernelModules = [ "i915" ];
-	};
+    };
     plymouth = {
       enable = true;
       theme = "spinner";
-	};
+    };
     kernelParams = [
       "i915.enable_guc=3" 
       "i915.enable_fbc=1"
@@ -33,7 +33,7 @@
       "splash"
       "loglevel=3"
       "udev.log_level=3"
-	];
+    ];
     kernel.sysctl."vm.swappiness" = 30;
   };
 
