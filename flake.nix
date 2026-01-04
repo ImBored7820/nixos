@@ -30,11 +30,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware support
-    #nixos-hardware.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
+    #nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     # Window manager
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/v0.53.0";
 
     # Home Manager
     home-manager = {
