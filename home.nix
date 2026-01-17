@@ -29,7 +29,6 @@
       prismlauncher
       nautilus
       jetbrains.idea
-      jdk25
       nwg-dock-hyprland
       nwg-drawer
       dunst
@@ -62,7 +61,13 @@
       # Misc
       cachix
       zoom-us
+      powershell
     ];
+
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk25;
+  };
 
   home.pointerCursor = {
     gtk.enable = true;

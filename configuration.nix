@@ -10,10 +10,11 @@
 
   boot = {
     consoleLogLevel = 0;
+    initrd.verbose = false;
     loader = {
       systemd-boot = {
         enable = true;
-        consoleMode = "max";
+        consoleMode = "keep";
 	};
       efi.canTouchEfiVariables = true;
       timeout = 0;
@@ -24,7 +25,7 @@
     };
     plymouth = {
       enable = true;
-      theme = "spinner";
+      theme = "bgrt";
     };
     kernelParams = [
       "i915.enable_guc=3" 
@@ -33,6 +34,9 @@
       "splash"
       "loglevel=3"
       "udev.log_level=3"
+      "rd.systemd.show_status=false"   # <--- Critical for removing "OK" text
+      "rd.udev.log_level=3"            # <--- Lowers udev logging during initrd
+      "vt.global_cursor_default=0"
     ];
     kernel.sysctl."vm.swappiness" = 30;
   };
@@ -117,7 +121,7 @@
   # --- PACKAGES ---
   users.users.musa = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "video" ];
     shell = pkgs.bash;
   };
 
